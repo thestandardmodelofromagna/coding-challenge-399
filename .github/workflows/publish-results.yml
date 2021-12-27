@@ -9,6 +9,7 @@ on:
 
 jobs:
   update:
+    if: ${{ github.event.workflow_run.conclusion == 'skipped' }}
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
