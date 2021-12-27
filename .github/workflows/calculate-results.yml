@@ -1,0 +1,20 @@
+name: Calculate results
+
+on:
+  pull_request:
+
+jobs:
+  calculate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Execute
+        run: |
+          res=$(dotnet run coding-challange-399.csproj)
+          timestamp=$(date +'%c')
+          echo "${{ github.actor }}::$res::$timestamp" >> score.txt
+      - uses: actions/upload-artifact@v2
+        with:
+          name: score
+          path: score.txt
+          retention-days: 1

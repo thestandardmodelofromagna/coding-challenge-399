@@ -1,0 +1,28 @@
+name: Publish results
+
+on:
+  workflow_run:
+    workflows:
+      - "Calculate results"
+    types:
+      - "completed"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: score
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ github.token }}
+      - name: Update Github Pages
+        run: |
+          cat score.txt >> dist/standings.txt
+          cd dist
+          git init
+          git add -A
+          git status
+          git commit -m "build: publish challenge results ${{ github.run_number }}"
+          git push -f https://Daniele-Tentoni:${{ github.token }}@github.com/Daniele-Tentoni/coding-challenge-399.git master:gh-pages

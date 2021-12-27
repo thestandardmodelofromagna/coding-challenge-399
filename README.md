@@ -1,6 +1,6 @@
-# Coding Challange 399
+# Coding Challenge 399
 
-Repository for challange build automation. Took inspiration from [Daily Challanges](https://www.reddit.com/r/dailyprogrammer/comments/onfehl/20210719_challenge_399_easy_letter_value_sum/).
+Repository for challenge build automation. Took inspiration from [Daily Challenges](https://www.reddit.com/r/dailyprogrammer/comments/onfehl/20210719_challenge_399_easy_letter_value_sum/).
 
 ## Instructions
 
@@ -8,9 +8,12 @@ Repository for challange build automation. Took inspiration from [Daily Challang
 2. Read the challenge
 3. Open a pull request to the forked repo
 
-## Challange
+The results will be uploaded to [Github Pages](https://daniele-tentoni.github.io/coding-challange-399/).
+
+## Challenge
 
 Assign every lowercase letter a value, from 1 for a to 26 for z. Given a string of lowercase letters, find the sum of the values of the letters in the string.
+
 ```
 lettersum("") => 0
 lettersum("a") => 1
@@ -23,6 +26,9 @@ lettersum("microspectrophotometries") => 317
 ### Optional bonus challenges
 
 ! Use the enable1 word list for the optional bonus challenges.
+
+Hint: successive challenges may share some code with previous ones.
+
 1. microspectrophotometries is the only word with a letter sum of 317. Find the only word with a letter sum of 319.
 2. How many words have an odd letter sum?
 3. There are 1921 words with a letter sum of 100, making it the second most common letter sum. What letter sum is most common, and how many words have it?
