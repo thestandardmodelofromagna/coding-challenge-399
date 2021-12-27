@@ -2,8 +2,8 @@ name: Publish results
 
 on:
   workflow_run:
-    workflows:
-      - "Calculate results"
+    workflows: ["Calculate results"]
+    branches: [main]
     types:
       - "completed"
 
@@ -11,9 +11,11 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v2
         with:
           name: score
+          workflow: calculate-results.yml
       - uses: actions/checkout@v2
         with:
           token: ${{ github.token }}
