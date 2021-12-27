@@ -65,7 +65,7 @@
           };
         },
         mounted() {
-          fetch("https://raw.githubusercontent.com/Daniele-Tentoni/coding-challange-399/main/standings.txt")
+          fetch("https://raw.githubusercontent.com/Daniele-Tentoni/coding-challange-399/gh-pages/standings.txt")
             .then(response => response.text())
             .then(text => this.content = text)
             .then(() => console.log("Read."));
