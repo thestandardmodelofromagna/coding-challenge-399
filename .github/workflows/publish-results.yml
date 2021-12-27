@@ -27,6 +27,8 @@ jobs:
           cat score.txt >> dist/standings.txt
           ls -l dist/
           cd dist
+          git config --global user.email 'CI@example.com'
+          git config --global user.name 'CI'
           git init
           git add -A
           git status
