@@ -12,17 +12,20 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Download artifact
+      - name: Checkot the main repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ github.token }}
+      - name: Download results from challenge submission
         uses: dawidd6/action-download-artifact@v2
         with:
           name: score
           workflow: calculate-results.yml
-      - uses: actions/checkout@v2
-        with:
-          token: ${{ github.token }}
       - name: Update Github Pages
         run: |
+          ls -l
           cat score.txt >> dist/standings.txt
+          ls -l dist/
           cd dist
           git init
           git add -A
