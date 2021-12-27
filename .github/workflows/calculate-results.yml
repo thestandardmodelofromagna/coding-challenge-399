@@ -14,7 +14,7 @@ jobs:
         run: |
           res=$(dotnet run coding-challange-399.csproj)
           timestamp=$(date +'%c')
-          echo "${{ github.actor }}::$res::$timestamp" > score.txt
+          echo "${{ github.event.pull_request.base.user.login }}::$res::$timestamp" > score.txt
       - uses: actions/upload-artifact@v2
         with:
           name: score
