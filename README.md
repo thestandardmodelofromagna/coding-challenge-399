@@ -1,11 +1,17 @@
 # Coding Challenge 399
 
-Repository for challenge build automation. Took inspiration from [Daily Challenges](https://www.reddit.com/r/dailyprogrammer/comments/onfehl/20210719_challenge_399_easy_letter_value_sum/).
+Repository for challenge build automation. Took inspiration from [Reddit Daily Challenge #399](https://www.reddit.com/r/dailyprogrammer/comments/onfehl/20210719_challenge_399_easy_letter_value_sum/).
+
+**Table of Contents**:
+* [Instructions](#instructions)
+* [Challenge](#challenge)
+* [Contributions](#contributions)
 
 ## Instructions
 
 1. Fork this repository
-2. Read the challenge
+2. Read the [challenge](#challenge)
+3. Write code in functions inside _Program.cs_ file
 3. Open a pull request to the forked repo
 
 The results will be uploaded to [Github Pages](https://daniele-tentoni.github.io/coding-challange-399/).
@@ -37,3 +43,7 @@ Hint: successive challenges may share some code with previous ones.
 6. The list of word { geographically, eavesdropper, woodworker, oxymorons } contains 4 words. Each word in the list has both a different number of letters, and a different letter sum. The list is sorted both in descending order of word length, and ascending order of letter sum. What's the longest such list you can find?
 
 (This challenge is a repost of Challenge #52 [easy], originally posted by u/rya11111 in May 2012.)
+
+## Contributions
+
+The challenge score update script support only CSharp code base. If you want to support another language, let me know it.
