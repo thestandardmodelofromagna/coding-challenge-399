@@ -4,7 +4,7 @@ function lettersum {
   # $1 param contains the word to process
 
   # Write here the code for step 0
-  lettersum_result=-1
+  lettersum_result=0
 }
 
 function single_word_with_given_letter_sum {
