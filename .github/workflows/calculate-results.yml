@@ -36,12 +36,15 @@ jobs:
         if: steps.language.outputs.lang == 'cs'
         with:
           dotnet-version: '3.1.x'
+          
+      - name: Build .Net Core project
+        if: steps.language.outputs.lang == 'cs'
+        run: dotnet build csharp
 
       - name: Execute CSharp challenge
         if: steps.language.outputs.lang == 'cs'
         run: |
-          dotnet build csharp
-          res=$(dotnet run --project csharp/coding-challange-399.csproj)
+          res=$(dotnet run --project csharp/coding-challenge-399.csproj 2>&1)
           echo "Run result: $res"
           timestamp=${{ steps.timestamp.outputs.timestamp }}
           user=${{ github.event.pull_request.base.user.login }}
