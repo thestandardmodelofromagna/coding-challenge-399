@@ -39,11 +39,13 @@ jobs:
       - name: Execute CSharp challenge
         if: steps.language.outputs.lang == 'cs'
         run: |
+          dotnet build csharp
           res=$(dotnet run csharp/coding-challange-399.csproj)
           timestamp=${{ steps.timestamp.outputs.timestamp }}
           user=${{ github.event.pull_request.base.user.login }}
           echo "$user::$res::$timestamp" > score.txt
 
+      # Bash challenges doesn't need any pre configuration
       - name: Execute Bash challenge
         run: |
           res=$(./bash/program.sh)
