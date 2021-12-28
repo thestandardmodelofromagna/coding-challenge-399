@@ -41,12 +41,17 @@
                 <th>Rank</th>
                 <th>Repo Owner</th>
                 <th>Score</th>
+                <th>Language</th>
                 <th>Last Attempt</th>
               </tr>
             </thead>
             <tbody id="standing-body">
               <tr v-for="(content, i) in tableContent" :key="i">
-                <td>{{ i + 1 }}°</td><td>{{ content.player }}</td><td>{{ content.score }}</td><td>{{ content.last }}</td>
+                <td>{{ i + 1 }}°</td>
+                <td>{{ content.player }}</td>
+                <td>{{ content.score }}</td>
+                <td>{{ content.language }}</td>
+                <td>{{ content.last }}</td>
               </tr>
             </tbody>
           </table>
@@ -75,7 +80,8 @@
               return {
                 player: elems[0],
                 score: elems[1],
-                last: elems[2]
+                last: elems[2],
+                language: elems[3]
               };
             })
             .sort((f, s) => s.score - f.score)
