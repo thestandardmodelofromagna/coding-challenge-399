@@ -10,11 +10,47 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Execute
+
+      - uses: jitterbit/get-changed-files@v1
+        id: changes
+
+      - name: Get modified files
+        id: language
+        if: contains( steps.changes.outputs.modified, 'Program.cs' )
         run: |
-          res=$(dotnet run coding-challange-399.csproj)
-          timestamp=$(date +'%c')
-          echo "${{ github.event.pull_request.base.user.login }}::$res::$timestamp" > score.txt
+          if [[ ${{ contains( steps.changes.outputs.modified, 'Program.cs' ) }} ]]; then
+            echo "CSharp challenge"
+            echo "::set-output name=lang::cs"
+          elif [[ ${{ contains( steps.changes.outputs.modified, 'program.sh' ) }} ]]; then
+            echo "Bash challenge"
+            echo "::set-output name=lang::bash";
+          fi
+
+      - name: Get Current timestamp
+        id: timestamp
+        run: echo "::set-output name=timestamp::$(date +'%c')"
+
+      # Require dotnet for CSharp challenges
+      - uses: actions/setup-dotnet@v1
+        if: steps.language.outputs.lang == 'cs'
+        with:
+          version: '3.x'
+
+      - name: Execute CSharp challenge
+        if: steps.language.outputs.lang == 'cs'
+        run: |
+          res=$(dotnet run csharp/coding-challange-399.csproj)
+          timestamp=${{ steps.timestamp.outputs.timestamp }}
+          user=${{ github.event.pull_request.base.user.login }}
+          echo "$user::$res::$timestamp" > score.txt
+
+      - name: Execute Bash challenge
+        run: |
+          res=$(./bash/program.sh)
+          timestamp=${{ steps.timestamp.outputs.timestamp }}
+          user=${{ github.event.pull_request.base.user.login }}
+          echo "$user::$res::$timestamp" > score.txt
+
       - uses: actions/upload-artifact@v2
         with:
           name: score
