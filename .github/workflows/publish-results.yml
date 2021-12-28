@@ -16,15 +16,23 @@ jobs:
         uses: actions/checkout@v2
         with:
           token: ${{ github.token }}
+
       - name: Download results from challenge submission
         uses: dawidd6/action-download-artifact@v2
         with:
           name: score
           workflow: calculate-results.yml
+
       - name: Update Github Pages
         run: |
           ls -l
+          echo "::group::Create standings"
+          echo "Score contents"
+          cat score.txt
           cat score.txt >> dist/standings.txt
+          echo "Standings contents"
+          cat dist/standings.txt
+          echo "::endgroup::"
           ls -l dist/
           cd dist
           git config --global user.email 'CI@example.com'
