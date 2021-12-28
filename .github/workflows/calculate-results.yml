@@ -52,7 +52,7 @@ jobs:
           echo "Run result: $res"
           timestamp='${{ steps.timestamp.outputs.timestamp }}'
           user='${{ github.event.pull_request.base.user.login }}'
-          lang=${{ steps.language.outputs.lang }}
+          lang='${{ steps.language.outputs.lang }}'
           echo "$user::$res::$timestamp::$lang" > score.txt
 
       # Bash challenges doesn't need any pre configuration
@@ -60,9 +60,9 @@ jobs:
         if: steps.language.outputs.lang == 'bash'
         run: |
           res=$(./bash/program.sh)
-          timestamp=${{ steps.timestamp.outputs.timestamp }}
-          user=${{ github.event.pull_request.base.user.login }}
-          lang=${{ steps.language.outputs.lang }}
+          timestamp='${{ steps.timestamp.outputs.timestamp }}'
+          user='${{ github.event.pull_request.base.user.login }}'
+          lang='${{ steps.language.outputs.lang }}'
           echo "$user::$res::$timestamp::$lang" > score.txt
 
       - uses: actions/upload-artifact@v2
