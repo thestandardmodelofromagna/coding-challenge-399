@@ -77,7 +77,9 @@
                 score: elems[1],
                 last: elems[2]
               };
-            }).sort((f, s) => s.score - f.score);
+            })
+            .sort((f, s) => s.score - f.score)
+            .slice(0, 10);
             return scores;
           }
         },
