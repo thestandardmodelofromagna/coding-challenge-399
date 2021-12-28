@@ -17,12 +17,16 @@ jobs:
       # Supported languages: cs (CSharp) and bash (Bash)
       - name: Get modified files
         id: language
-        if: contains( steps.changes.outputs.modified, 'Program.cs' )
         run: |
-          if [[ ${{ contains( steps.changes.outputs.modified, 'Program.cs' ) }} ]]; then
+          contains_cs=${{ contains( steps.changes.outputs.modified, 'Program.cs' ) }}
+          contains_bash=${{ contains( steps.changes.outputs.modified, 'program.sh' ) }}
+          echo "::group::Check contains"
+          echo "CS: $contains_cs, BASH: $contains_bash"
+          echo "::endgroup::"
+          if [[ "$contains_cs" == true ]]; then
             echo "CSharp challenge"
             echo "::set-output name=lang::cs"
-          elif [[ ${{ contains( steps.changes.outputs.modified, 'program.sh' ) }} ]]; then
+          elif [[ "$contains_bash" == true ]]; then
             echo "Bash challenge"
             echo "::set-output name=lang::bash";
           fi
