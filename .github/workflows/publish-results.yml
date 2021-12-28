@@ -9,13 +9,24 @@ on:
 
 jobs:
   update:
+    env:
+      branch: gh-pages
+      owner: Daniele-Tentoni
+      repo: coding-challenge-399
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the main repository
         uses: actions/checkout@v2
         with:
+          ref: ${{ env.branch }}
+          repository: ${{ env.owner }}/${{ env.repo }}
           token: ${{ github.token }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
 
       - name: Download results from challenge submission
         uses: dawidd6/action-download-artifact@v2
@@ -23,22 +34,21 @@ jobs:
           name: score
           workflow: calculate-results.yml
 
-      - name: Update Github Pages
+      - name: Create standings
         run: |
           ls -l
           echo "::group::Create standings"
           echo "Score contents"
-          cat score.txt
-          cat score.txt >> dist/standings.txt
-          echo "Standings contents"
+          ./updater.py
           cat dist/standings.txt
           echo "::endgroup::"
           ls -l dist/
           cd dist
-          git config --global user.email 'CI@example.com'
-          git config --global user.name 'CI'
-          git init
+
+      - name: Update Github Pages
+        run: |
+          git status
           git add -A
           git status
           git commit -m "build: publish challenge results ${{ github.run_number }}"
-          git push -f https://Daniele-Tentoni:${{ github.token }}@github.com/Daniele-Tentoni/coding-challenge-399.git master:gh-pages
+          git push -f origin ${{ env.branch }}
