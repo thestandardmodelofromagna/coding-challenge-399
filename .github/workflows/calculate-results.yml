@@ -34,7 +34,7 @@ jobs:
       - uses: actions/setup-dotnet@v1
         if: steps.language.outputs.lang == 'cs'
         with:
-          version: '3.1.x'
+          dotnet-version: '3.1.x'
 
       - name: Execute CSharp challenge
         if: steps.language.outputs.lang == 'cs'
