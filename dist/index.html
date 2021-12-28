@@ -14,28 +14,52 @@
     <div id="app">
       <div class="row">
         <div class="col">
-          <h1>Coding Challange 399!</h1>
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <div class="ma-5">
+                  <h1>Coding Challange 399!</h1>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <table class="table">
-        <caption>Current Standings</caption>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Repo Owner</th>
-            <th>Score</th>
-            <th>Last Attempt</th>
-          </tr>
-        </thead>
-        <tbody id="standing-body">
-          <tr v-for="(content, i) in tableContent" :key="i">
-            <td>{{ i + 1 }}°</td><td>{{ content.player }}</td><td>{{ content.score }}</td><td>{{ content.last }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="row">
+        <div class="col">
+          <p class="ma-5">Follow instruction on <a href="https://github.com/Daniele-Tentoni/coding-challenge-399">Coding Challange 399!</a> to see your name in the table.
+        </div>
+      </div>
 
-      <div id="log">{{ message }}</div>
+      <div class="row">
+        <div class="col">
+          <table class="table">
+            <caption>Current Standings</caption>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Repo Owner</th>
+                <th>Score</th>
+                <th>Last Attempt</th>
+              </tr>
+            </thead>
+            <tbody id="standing-body">
+              <tr v-for="(content, i) in tableContent" :key="i">
+                <td>{{ i + 1 }}°</td><td>{{ content.player }}</td><td>{{ content.score }}</td><td>{{ content.last }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="ma-5">
+            <div id="log">{{ message }}</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -48,7 +72,6 @@
             const players = this.content.split('\n').filter(f => f != "");
             const scores = players.map(elem => {
               const elems = elem.split("::");
-              console.log("Elems", elem, elems);
               return {
                 player: elems[0],
                 score: elems[1],
@@ -67,8 +90,7 @@
         mounted() {
           fetch("https://raw.githubusercontent.com/Daniele-Tentoni/coding-challange-399/gh-pages/standings.txt")
             .then(response => response.text())
-            .then(text => this.content = text)
-            .then(() => console.log("Read."));
+            .then(text => this.content = text);
           // this.content = "D-T::2\nA-P::1\nT-S::3";
         }
       })
