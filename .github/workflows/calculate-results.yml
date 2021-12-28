@@ -46,8 +46,8 @@ jobs:
         run: |
           res=$(dotnet run --project csharp/coding-challenge-399.csproj 2>&1)
           echo "Run result: $res"
-          timestamp=${{ steps.timestamp.outputs.timestamp }}
-          user=${{ github.event.pull_request.base.user.login }}
+          timestamp='${{ steps.timestamp.outputs.timestamp }}'
+          user='${{ github.event.pull_request.base.user.login }}'
           echo "$user::$res::$timestamp" > score.txt
 
       # Bash challenges doesn't need any pre configuration
