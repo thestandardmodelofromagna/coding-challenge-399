@@ -14,6 +14,7 @@ jobs:
       - uses: jitterbit/get-changed-files@v1
         id: changes
 
+      # Supported languages: cs (CSharp) and bash (Bash)
       - name: Get modified files
         id: language
         if: contains( steps.changes.outputs.modified, 'Program.cs' )
@@ -41,12 +42,14 @@ jobs:
         run: |
           dotnet build csharp
           res=$(dotnet run --project csharp/coding-challange-399.csproj)
+          echo "Run result: $res"
           timestamp=${{ steps.timestamp.outputs.timestamp }}
           user=${{ github.event.pull_request.base.user.login }}
           echo "$user::$res::$timestamp" > score.txt
 
       # Bash challenges doesn't need any pre configuration
       - name: Execute Bash challenge
+        if: steps.language.outputs.lang == 'bash'
         run: |
           res=$(./bash/program.sh)
           timestamp=${{ steps.timestamp.outputs.timestamp }}
