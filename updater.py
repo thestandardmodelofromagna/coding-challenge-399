@@ -20,7 +20,7 @@ def sed() -> None:
   lines = []
   missing = True
   try:
-    with open("dist/standings.txt", 'r') as r:
+    with open("standings.txt", 'r') as r:
       for line in r.readlines():
         comps = line.split("::")
         if comps[0] == score[0]:
@@ -38,7 +38,7 @@ def sed() -> None:
 
   standings = [s for s in sorted(lines, key=lambda x: (x[1], x[2]),reverse=True)]
   try:
-    with open("dist/standings.txt", "w") as w:
+    with open("standings.txt", "w") as w:
       for s in standings:
         w.write("::".join(s))
   except OSError as e:

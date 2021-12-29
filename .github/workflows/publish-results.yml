@@ -8,7 +8,7 @@ on:
       - "completed"
 
 jobs:
-  update:
+  standings:
     env:
       branch: gh-pages
       owner: Daniele-Tentoni
@@ -19,8 +19,6 @@ jobs:
       - name: Checkout the main repository
         uses: actions/checkout@v2
         with:
-          ref: ${{ env.branch }}
-          repository: ${{ env.owner }}/${{ env.repo }}
           token: ${{ github.token }}
 
       - name: Setup Python
@@ -38,17 +36,32 @@ jobs:
         run: |
           ls -l
           echo "::group::Create standings"
+          curl -f -O https://raw.githubusercontent.com/${{ env.owner }}/${{ env.repo }}/${{ env.branch }}/standings.txt
           echo "Score contents"
           ./updater.py
-          cat dist/standings.txt
+          cat standings.txt
           echo "::endgroup::"
-          ls -l dist/
-          cd dist
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: standings
+          path: standings.txt
+          retention-days: 1
+
+  publish:
+    needs: [standings]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: standings
 
       - name: Update Github Pages
         run: |
+          git init
           git status
           git add -A
           git status
           git commit -m "build: publish challenge results ${{ github.run_number }}"
-          git push -f origin ${{ env.branch }}
+          git push -f https://${{ env.owner }}:${{ github.token }}@github.com/${{ env.owner }}/${{ env.repo }}.git ${{ env.branch }}:gh-pages
