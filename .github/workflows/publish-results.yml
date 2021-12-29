@@ -7,12 +7,13 @@ on:
     types:
       - "completed"
 
+env:
+  branch: gh-pages
+  owner: Daniele-Tentoni
+  repo: coding-challenge-399
+
 jobs:
   standings:
-    env:
-      branch: gh-pages
-      owner: Daniele-Tentoni
-      repo: coding-challenge-399
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
