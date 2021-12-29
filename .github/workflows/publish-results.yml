@@ -59,6 +59,8 @@ jobs:
 
       - name: Update Github Pages
         run: |
+          git config --global user.email scorekeeper@example.com
+          git config --global user.name Scorekeeper
           git init
           git status
           git add -A
