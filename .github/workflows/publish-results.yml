@@ -60,6 +60,7 @@ jobs:
 
       - name: Update Github Pages
         run: |
+          git config --global init.defaultBranch standings
           git config --global user.email scorekeeper@example.com
           git config --global user.name Scorekeeper
           git init
@@ -67,4 +68,4 @@ jobs:
           git add -A
           git status
           git commit -m "build: publish challenge results ${{ github.run_number }}"
-          git push -f https://${{ env.owner }}:${{ github.token }}@github.com/${{ env.owner }}/${{ env.repo }}.git ${{ env.branch }}:gh-pages
+          git push -f https://${{ env.owner }}:${{ github.token }}@github.com/${{ env.owner }}/${{ env.repo }}.git standings:${{ env.branch }}
